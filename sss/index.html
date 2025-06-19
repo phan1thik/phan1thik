@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Летний фестиваль Genshin Impact 2025</title>
+    <meta name="description" content="Участвуйте в летнем фестивале Genshin Impact и получите эксклюзивные награды!">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <style>
+        /* Основные цвета как в Genshin Impact */
+        :root {
+            --genshin-blue: #1a2a6c;
+            --genshin-gold: #ffcc00;
+            --genshin-dark: #0f1c3f;
+            --genshin-light: #f5f5f5;
+        }
+        
+        body {
+            background-color: var(--genshin-dark);
+            color: white;
+            font-family: 'Noto Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Главный баннер в стиле Genshin */
+        .hero-banner {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+             background: linear-gradient(rgba(15, 28, 63, 0.8), rgba(15, 28, 63, 0.8)), 
+                url('https://i.imgur.com/JqYeZ0L.jpg') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 204, 0, 0.1) 0%, transparent 30%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+            padding-top: 80px;
+        }
+        
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--genshin-gold);
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        /* Навигация как в официальном сайте */
+        .main-nav {
+            background: rgba(26, 42, 108, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s;
+            border-bottom: 1px solid rgba(255, 204, 0, 0.2);
+        }
+        
+        .main-nav.scrolled {
+            background: rgba(15, 28, 63, 0.95);
+            padding: 10px 0;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-logo img {
+            height: 40px;
+            transition: transform 0.3s;
+        }
+        
+        .nav-logo:hover img {
+            transform: scale(1.1);
+        }
+        
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .nav-link {
+            color: white;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--genshin-gold);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--genshin-gold);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Кнопки в стиле Genshin */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--genshin-gold);
+            color: var(--genshin-gold);
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background: rgba(255, 204, 0, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--genshin-gold), #ff9500);
+            color: var(--genshin-blue);
+            border: none;
+            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 204, 0, 0.4);
+            background: linear-gradient(135deg, #ffd633, #ffa726);
+        }
+        
+        /* Секции в стиле Genshin */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            color: var(--genshin-gold);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--genshin-gold);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Карточки особенностей */
+        .features-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .feature-card {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 204, 0, 0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 204, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--genshin-gold);
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .feature-text {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+        
+        /* Награды */
+        .rewards-section {
+            background: url('https://i.imgur.com/JqYeZ0L.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .rewards-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 28, 63, 0.9);
+        }
+        
+        .rewards-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .reward-card {
+            background: rgba(26, 42, 108, 0.7);
+            border-radius: 15px;
+            overflow: hidden;
+            max-width: 350px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 204, 0, 0.2);
+        }
+        
+        .reward-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .reward-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .reward-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .reward-card:hover .reward-image img {
+            transform: scale(1.1);
+        }
+        
+        .reward-content {
+            padding: 20px;
+        }
+        
+        .reward-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            color: var(--genshin-gold);
+            margin-bottom: 10px;
+        }
+        
+        .reward-description {
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+        
+        /* Футер */
+        .main-footer {
+            background: var(--genshin-blue);
+            padding: 50px 0 20px;
+            color: white;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-brand img {
+            height: 50px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 60px;
+        }
+        
+        .links-column h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            color: var(--genshin-gold);
+            margin-bottom: 20px;
+        }
+        
+        .links-column ul {
+            list-style: none;
+        }
+        
+        .links-column li {
+            margin-bottom: 10px;
+        }
+        
+        .links-column a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .links-column a:hover {
+            color: var(--genshin-gold);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .nav-menu {
+                gap: 15px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .features-grid, .rewards-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .feature-card, .reward-card {
+                max-width: 100%;
+                width: 100%;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .nav-menu {
+                gap: 10px;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-spinner">
+            <div class="spinner"></div>
+            
+        </div>
+    </div>
+
+    <!-- Главный баннер -->
+    <header class="hero-banner">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title animate__animated animate__fadeInUp">Летний фестиваль 2025</h1>
+                <p class="hero-subtitle animate__animated animate__fadeInUp animate__delay-1s">Откройте для себя новые приключения в Тейвате</p>
+                
+                <div class="countdown-container animate__animated animate__fadeIn animate__delay-1s">
+                    <h3 class="countdown-title">До конца события осталось:</h3>
+                    <div class="countdown-grid">
+                        <div class="countdown-card">
+                            <span id="days" class="countdown-value">00</span>
+                            <span class="countdown-label">Дней</span>
+                        </div>
+                        <div class="countdown-card">
+                            <span id="hours" class="countdown-value">00</span>
+                            <span class="countdown-label">Часов</span>
+                        </div>
+                        <div class="countdown-card">
+                            <span id="minutes" class="countdown-value">00</span>
+                            <span class="countdown-label">Минут</span>
+                        </div>
+                    </div>
+                    <a href="login.html" class="btn btn-primary animate__animated animate__pulse animate__infinite">
+                        <i class="fas fa-ticket-alt"></i> Участвовать
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Навигация -->
+    <nav class="main-nav sticky-nav">
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="nav-logo">
+                    <img src="https://i.ibb.co/LDFtxSHm/icon.png" alt="Genshin Impact">
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="#about" class="nav-link">О событии</a></li>
+                    <li><a href="#rewards" class="nav-link">Награды</a></li>
+                    <li><a href="login.html" class="btn btn-outline">Войти</a></li>
+                    <li><a href="register.html" class="btn btn-primary">Регистрация</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- О событии -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">О событии</h2>
+                <p class="section-subtitle">Летний фестиваль - это уникальная возможность получить эксклюзивные награды и испытать новые приключения</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-scroll"></i>
+                    </div>
+                    <h3 class="feature-title">Специальные квесты</h3>
+                    <p class="feature-text">Увлекательные задания с уникальным сюжетом, доступные только во время фестиваля</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3 class="feature-title">Эксклюзивные награды</h3>
+                    <p class="feature-text">Получите редкие предметы, которые больше нигде не доступны</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="feature-title">Мини-игры</h3>
+                    <p class="feature-text">Веселые соревнования с другими игроками на ловкость и смекалку</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Награды -->
+    <section id="rewards" class="section rewards-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Эксклюзивные награды</h2>
+                <p class="section-subtitle">Получите уникальные предметы, участвуя в фестивале</p>
+            </div>
+            
+            <div class="rewards-grid">
+                <div class="reward-card">
+                    <div class="reward-image">
+                        <img src="https://i.ibb.co/Wpp4ZTWV/primogem.jpg" alt="Primogems">
+                    </div>
+                    <div class="reward-content">
+                        <h3 class="reward-title">1600 Primogems</h3>
+                        <p class="reward-description">Достаточно для 10 молитв в системе гача</p>
+                        <div class="reward-progress">
+                            <div class="progress-info">
+                                <span>75% игроков получили</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reward-card">
+                    <div class="reward-image">
+                        <img src="https://i.ibb.co/k2GF20PW/weapon-1.png" alt="Эксклюзивное оружие">
+                    </div>
+                    <div class="reward-content">
+                        <h3 class="reward-title">Меч "Морской бриз"</h3>
+                        <p class="reward-description">Уникальное оружие с водяным эффектом</p>
+                        <div class="reward-progress">
+                            <div class="progress-info">
+                                <span>40% игроков получили</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reward-card">
+                    <div class="reward-image">
+                        <img src="https://i.ibb.co/Z6BJZ5Wv/costume.jpg" alt="Летний костюм">
+                    </div>
+                    <div class="reward-content">
+                        <h3 class="reward-title">Летний наряд</h3>
+                        <p class="reward-description">Эксклюзивный костюм для вашего персонажа</p>
+                        <div class="reward-progress">
+                            <div class="progress-info">
+                                <span>25% игроков получили</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 25%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="img/genshin-logo-white.png" alt="Genshin Impact">
+                    <p>Летний фестиваль 2025</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="links-column">
+                        <h3>Фестиваль</h3>
+                        <ul>
+                            <li><a href="#about">О событии</a></li>
+                            <li><a href="#rewards">Награды</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="links-column">
+                        <h3>Помощь</h3>
+                        <ul>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Контакты</a></li>
+                            <li><a href="#">Поддержка</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 Genshin Impact Summer Festival. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Кнопка "Наверх" -->
+    <button id="scrollToTop" class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Скрипты -->
+    <script src="js/main.js"></script>
+    <script>
+        // Анимация навигации при скролле
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.main-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+        
+        // Таймер обратного отсчета
+        function updateCountdown() {
+            const endDate = new Date('July 31, 2025 23:59:59').getTime();
+            const now = new Date().getTime();
+            const distance = endDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+        
+        // Кнопка "Наверх"
+        document.getElementById('scrollToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Показывать/скрывать кнопку "Наверх"
+        window.addEventListener('scroll', function() {
+            const scrollToTop = document.getElementById('scrollToTop');
+            if (window.scrollY > 300) {
+                scrollToTop.style.opacity = '1';
+                scrollToTop.style.visibility = 'visible';
+            } else {
+                scrollToTop.style.opacity = '0';
+                scrollToTop.style.visibility = 'hidden';
+            }
+        });
+    </script>
+</body>
+</html>

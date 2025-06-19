@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Регистрация | Летний фестиваль Genshin Impact 2025</title>
+  <meta name="description" content="Зарегистрируйтесь для участия в летнем фестивале Genshin Impact 2025">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .auth-container {
+       background: url('https://i.imgur.com/JqYeZ0L.jpg') no-repeat center center;
+  background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+    }
+    
+    .auth-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
+      overflow: hidden;
+    }
+    
+    .auth-header {
+      padding: 30px;
+      text-align: center;
+      background: linear-gradient(135deg, #4fc3f7 0%, #1976d2 100%);
+      color: white;
+    }
+    
+    .auth-logo {
+      width: 80px;
+      height: auto;
+      margin-bottom: 15px;
+    }
+    
+    .auth-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    
+    .auth-subtitle {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    
+    .auth-tabs {
+      display: flex;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .auth-tab {
+      flex: 1;
+      padding: 15px;
+      background: none;
+      border: none;
+      font-family: 'Noto Sans', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      color: #757575;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .auth-tab.active {
+      color: #1976d2;
+      border-bottom: 2px solid #1976d2;
+    }
+    
+    .auth-tab i {
+      margin-right: 8px;
+    }
+    
+    .auth-form {
+      padding: 25px;
+      display: none;
+    }
+    
+    .auth-form.active-form {
+      display: block;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #424242;
+    }
+    
+    .form-label i {
+      margin-right: 8px;
+      color: #1976d2;
+    }
+    
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 14px;
+      transition: border 0.3s ease;
+    }
+    
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #1976d2;
+      outline: none;
+    }
+    
+    .password-container {
+      position: relative;
+    }
+    
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #757575;
+      cursor: pointer;
+    }
+    
+    .input-hint {
+      font-size: 12px;
+      color: #757575;
+      margin-top: 5px;
+    }
+    
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .checkbox-container {
+      display: block;
+      position: relative;
+      padding-left: 30px;
+      cursor: pointer;
+      font-size: 14px;
+      user-select: none;
+    }
+    
+    .checkbox-container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+    
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      background-color: #eee;
+      border-radius: 4px;
+    }
+    
+    .checkbox-container:hover input ~ .checkmark {
+      background-color: #e0e0e0;
+    }
+    
+    .checkbox-container input:checked ~ .checkmark {
+      background-color: #1976d2;
+    }
+    
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+    
+    .checkbox-container input:checked ~ .checkmark:after {
+      display: block;
+    }
+    
+    .checkbox-container .checkmark:after {
+      left: 7px;
+      top: 3px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    
+    .forgot-password {
+      color: #1976d2;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-family: 'Noto Sans', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+    
+    .btn-primary {
+      background-color: #1976d2;
+      color: white;
+      width: 100%;
+    }
+    
+    .btn-primary:hover {
+      background-color: #1565c0;
+    }
+    
+    .btn-auth i {
+      margin-right: 8px;
+    }
+    
+    .error-message {
+      color: #d32f2f;
+      font-size: 14px;
+      margin-top: 15px;
+      display: none;
+    }
+    
+    .error-message i {
+      margin-right: 8px;
+    }
+    
+    .password-strength {
+      margin-top: 10px;
+    }
+    
+    .strength-meter {
+      height: 5px;
+      background: #e0e0e0;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 5px;
+    }
+    
+    .strength-fill {
+      height: 100%;
+      width: 0;
+      background: #d32f2f;
+      transition: all 0.3s ease;
+    }
+    
+    .strength-text {
+      font-size: 12px;
+      color: #757575;
+    }
+    
+    .strength-text span {
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <main class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+      
+        <h1 class="auth-title">Летний фестиваль 2025</h1>
+        <p class="auth-subtitle">Получите эксклюзивные награды и примите участие в специальных событиях</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button id="loginTab" class="auth-tab active">
+          <i class="fas fa-sign-in-alt"></i> Вход
+        </button>
+        <button id="registerTab" class="auth-tab">
+          <i class="fas fa-user-plus"></i> Регистрация
+        </button>
+      </div>
+
+      <!-- Форма входа -->
+      <form id="loginForm" class="auth-form active-form">
+        <div class="form-group">
+          <label for="loginUsername" class="form-label">
+            <i class="fas fa-user"></i> Имя пользователя
+          </label>
+          <input type="text" id="loginUsername" placeholder="Введите ваш логин" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="loginPassword" class="form-label">
+            <i class="fas fa-lock"></i> Пароль
+          </label>
+          <div class="password-container">
+            <input type="password" id="loginPassword" placeholder="Введите ваш пароль" required>
+            <button type="button" class="toggle-password" aria-label="Показать пароль">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="form-group form-options">
+          <label class="checkbox-container">
+            Запомнить меня
+            <input type="checkbox" id="rememberMe">
+            <span class="checkmark"></span>
+          </label>
+          <a href="#" class="forgot-password">Забыли пароль?</a>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-auth">
+          <i class="fas fa-sign-in-alt"></i> Войти
+        </button>
+        
+        <p id="loginError" class="error-message">
+          <i class="fas fa-exclamation-circle"></i> Неверное имя пользователя или пароль
+        </p>
+      </form>
+
+      <!-- Форма регистрации -->
+      <form id="registerForm" class="auth-form">
+        <div class="form-group">
+          <label for="registerUsername" class="form-label">
+            <i class="fas fa-user"></i> Имя пользователя
+          </label>
+          <input type="text" id="registerUsername" placeholder="Придумайте логин" required>
+          <div class="input-hint">От 4 до 16 символов (буквы и цифры)</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="registerPassword" class="form-label">
+            <i class="fas fa-lock"></i> Пароль
+          </label>
+          <div class="password-container">
+            <input type="password" id="registerPassword" placeholder="Придумайте пароль" required>
+            <button type="button" class="toggle-password" aria-label="Показать пароль">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <div class="password-strength">
+            <div class="strength-meter">
+              <div class="strength-fill"></div>
+            </div>
+            <div class="strength-text">Надежность пароля: <span>—</span></div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="registerRepeat" class="form-label">
+            <i class="fas fa-redo"></i> Повторите пароль
+          </label>
+          <div class="password-container">
+            <input type="password" id="registerRepeat" placeholder="Повторите пароль" required>
+            <button type="button" class="toggle-password" aria-label="Показать пароль">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="checkbox-container">
+            Я согласен с <a href="#">условиями использования</a> и <a href="#">политикой конфиденциальности</a>
+            <input type="checkbox" id="registerAgree" required>
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-auth">
+          <i class="fas fa-user-plus"></i> Зарегистрироваться
+        </button>
+        
+        <p id="registerError" class="error-message">
+          <i class="fas fa-exclamation-circle"></i> Пожалуйста, заполните все поля правильно
+        </p>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    // Переключение между вкладками входа и регистрации
+    document.getElementById('loginTab').addEventListener('click', function() {
+      document.getElementById('loginTab').classList.add('active');
+      document.getElementById('registerTab').classList.remove('active');
+      document.getElementById('loginForm').classList.add('active-form');
+      document.getElementById('registerForm').classList.remove('active-form');
+    });
+    
+    document.getElementById('registerTab').addEventListener('click', function() {
+      document.getElementById('registerTab').classList.add('active');
+      document.getElementById('loginTab').classList.remove('active');
+      document.getElementById('registerForm').classList.add('active-form');
+      document.getElementById('loginForm').classList.remove('active-form');
+    });
+    
+    // Показать/скрыть пароль
+    const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+    togglePasswordButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const input = this.previousElementSibling;
+        const icon = this.querySelector('i');
+        
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon.classList.remove('fa-eye');
+          icon.classList.add('fa-eye-slash');
+        } else {
+          input.type = 'password';
+          icon.classList.remove('fa-eye-slash');
+          icon.classList.add('fa-eye');
+        }
+      });
+    });
+    
+    // Проверка сложности пароля при регистрации
+    document.getElementById('registerPassword').addEventListener('input', function() {
+      const password = this.value;
+      const strengthFill = document.querySelector('.strength-fill');
+      const strengthText = document.querySelector('.strength-text span');
+      
+      let strength = 0;
+      
+      // Проверка длины
+      if (password.length > 0) strength += 20;
+      if (password.length >= 8) strength += 20;
+      
+      // Проверка наличия цифр
+      if (/\d/.test(password)) strength += 20;
+      
+      // Проверка наличия букв в верхнем регистре
+      if (/[A-ZА-Я]/.test(password)) strength += 20;
+      
+      // Проверка наличия специальных символов
+      if (/[^A-Za-zА-Яа-я0-9]/.test(password)) strength += 20;
+      
+      strengthFill.style.width = strength + '%';
+      
+      if (strength <= 40) {
+        strengthFill.style.backgroundColor = '#d32f2f';
+        strengthText.textContent = 'Слабый';
+      } else if (strength <= 80) {
+        strengthFill.style.backgroundColor = '#ffa000';
+        strengthText.textContent = 'Средний';
+      } else {
+        strengthFill.style.backgroundColor = '#388e3c';
+        strengthText.textContent = 'Сильный';
+      }
+    });
+    
+    // Обработка формы регистрации
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('registerUsername').value;
+      const password = document.getElementById('registerPassword').value;
+      const repeatPassword = document.getElementById('registerRepeat').value;
+      const agree = document.getElementById('registerAgree').checked;
+      
+      // Простая валидация
+      if (username.length < 4 || username.length > 16 || !/^[a-zA-Z0-9]+$/.test(username)) {
+        document.getElementById('registerError').textContent = 'Имя пользователя должно содержать от 4 до 16 символов (только буквы и цифры)';
+        document.getElementById('registerError').style.display = 'block';
+        return;
+      }
+      
+      if (password.length < 8) {
+        document.getElementById('registerError').textContent = 'Пароль должен содержать не менее 8 символов';
+        document.getElementById('registerError').style.display = 'block';
+        return;
+      }
+      
+      if (password !== repeatPassword) {
+        document.getElementById('registerError').textContent = 'Пароли не совпадают';
+        document.getElementById('registerError').style.display = 'block';
+        return;
+      }
+      
+      if (!agree) {
+        document.getElementById('registerError').textContent = 'Необходимо согласиться с условиями использования';
+        document.getElementById('registerError').style.display = 'block';
+        return;
+      }
+      
+      // Сохраняем пользователя в localStorage
+      localStorage.setItem('genshinUser', JSON.stringify({
+        username: username,
+        password: password
+      }));
+      
+      // Перенаправляем на страницу календаря
+      window.location.href = 'calendar.html';
+    });
+    
+    // Обработка формы входа
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('loginUsername').value;
+      const password = document.getElementById('loginPassword').value;
+      const rememberMe = document.getElementById('rememberMe').checked;
+      
+      // Получаем сохраненного пользователя
+      const savedUser = JSON.parse(localStorage.getItem('genshinUser'));
+      
+      if (savedUser && savedUser.username === username && savedUser.password === password) {
+        // Перенаправляем на страницу календаря
+        window.location.href = 'calendar.html';
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+      }
+    });
+    
+    // Скрываем сообщения об ошибках при изменении полей
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(input => {
+      input.addEventListener('input', function() {
+        if (this.closest('#loginForm')) {
+          document.getElementById('loginError').style.display = 'none';
+        } else {
+          document.getElementById('registerError').style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

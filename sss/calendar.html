@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Календарь событий | Летний фестиваль Genshin Impact 2025</title>
+  <meta name="description" content="Календарь событий и заданий летнего фестиваля Genshin Impact 2025">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --genshin-blue: #2a4365;
+      --genshin-light-blue: #4299e1;
+      --genshin-gold: #d69e2e;
+      --genshin-dark: #1a202c;
+      --genshin-bg: #f7fafc;
+      --genshin-card-bg: #ffffff;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      background-color: var(--genshin-bg);
+      color: var(--genshin-dark);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header Styles */
+    .calendar-header {
+      background: linear-gradient(135deg, var(--genshin-blue) 0%, var(--genshin-light-blue) 100%);
+      color: white;
+      padding: 20px 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .page-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+    
+    .page-title i {
+      margin-right: 10px;
+      color: var(--genshin-gold);
+    }
+    
+    .event-progress {
+      width: 300px;
+    }
+    
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--genshin-gold) 0%, #f6e05e 100%);
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+    
+    /* Calendar Controls */
+    .calendar-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 30px 0 20px;
+      flex-wrap: wrap;
+    }
+    
+    .calendar-nav {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--genshin-blue);
+      cursor: pointer;
+      padding: 5px 15px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    
+    .calendar-nav:hover {
+      background-color: rgba(66, 153, 225, 0.1);
+    }
+    
+    .current-month {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--genshin-blue);
+    }
+    
+    .view-options {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .view-option {
+      background: none;
+      border: 1px solid var(--genshin-light-blue);
+      color: var(--genshin-light-blue);
+      padding: 5px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    
+    .view-option.active {
+      background-color: var(--genshin-light-blue);
+      color: white;
+    }
+    
+    .view-option:hover:not(.active) {
+      background-color: rgba(66, 153, 225, 0.1);
+    }
+    
+    /* Calendar Grid */
+    .calendar-grid {
+      background-color: var(--genshin-card-bg);
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .day-names {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      font-weight: 600;
+      color: var(--genshin-blue);
+      margin-bottom: 10px;
+    }
+    
+    .day-name {
+      padding: 5px;
+    }
+    
+    .day-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+    }
+    
+    .day {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      background-color: rgba(66, 153, 225, 0.05);
+    }
+    
+    .day.empty {
+      visibility: hidden;
+    }
+    
+    .day:hover:not(.empty) {
+      background-color: rgba(66, 153, 225, 0.1);
+    }
+    
+    .day.active {
+      background-color: var(--genshin-light-blue);
+      color: white;
+    }
+    
+    .day.completed {
+      background-color: rgba(214, 158, 46, 0.1);
+      border: 2px solid var(--genshin-gold);
+    }
+    
+    .day-number {
+      font-weight: 600;
+      font-size: 16px;
+    }
+    
+    .day-events {
+      display: flex;
+      gap: 3px;
+    }
+    
+    .event-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--genshin-light-blue);
+    }
+    
+    .event-dot.primary {
+      background-color: var(--genshin-gold);
+    }
+    
+    .day.active .event-dot {
+      background-color: white;
+    }
+    
+    .day.active .event-dot.primary {
+      background-color: #f6e05e;
+    }
+    
+    /* Quests Section */
+    .quests-section {
+      margin-bottom: 40px;
+    }
+    
+    .quests-tabs {
+      display: flex;
+      border-bottom: 1px solid #e2e8f0;
+      margin-bottom: 20px;
+    }
+    
+    .quest-tab {
+      background: none;
+      border: none;
+      padding: 10px 20px;
+      font-weight: 600;
+      color: #718096;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .quest-tab.active {
+      color: var(--genshin-blue);
+    }
+    
+    .quest-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--genshin-light-blue);
+    }
+    
+    .quest-tab i {
+      margin-right: 8px;
+    }
+    
+    .quest-tab-content {
+      display: none;
+    }
+    
+    .quest-tab-content.active {
+      display: block;
+    }
+    
+    .quest-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .quest-header h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      color: var(--genshin-blue);
+      display: flex;
+      align-items: center;
+    }
+    
+    .quest-header h3 i {
+      margin-right: 10px;
+      color: var(--genshin-gold);
+    }
+    
+    .quest-reset {
+      font-size: 14px;
+      color: #718096;
+      display: flex;
+      align-items: center;
+    }
+    
+    .quest-reset i {
+      margin-right: 8px;
+      color: var(--genshin-light-blue);
+    }
+    
+    /* Tasks List */
+    .tasks-list {
+      list-style: none;
+    }
+    
+    .task-item {
+      background-color: var(--genshin-card-bg);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      display: flex;
+      transition: all 0.3s ease;
+    }
+    
+    .task-item:hover {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .task-item.completed {
+      opacity: 0.7;
+      background-color: rgba(214, 158, 46, 0.05);
+    }
+    
+    .task-checkbox {
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .task-checkbox input {
+      display: none;
+    }
+    
+    .task-checkbox label {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #cbd5e0;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    
+    .task-checkbox input:checked + label {
+      background-color: var(--genshin-gold);
+      border-color: var(--genshin-gold);
+    }
+    
+    .task-checkbox input:checked + label::after {
+      content: '\f00c';
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 12px;
+    }
+    
+    .task-info {
+      flex: 1;
+    }
+    
+    .task-info h4 {
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: var(--genshin-dark);
+    }
+    
+    .task-description {
+      font-size: 14px;
+      color: #718096;
+      margin-bottom: 10px;
+    }
+    
+    .task-reward {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+    
+    .reward-item {
+      font-size: 14px;
+      color: var(--genshin-blue);
+      display: flex;
+      align-items: center;
+    }
+    
+    .reward-item i {
+      margin-right: 5px;
+      color: var(--genshin-gold);
+    }
+    
+    .task-progress {
+      margin-top: 10px;
+    }
+    
+    .task-progress .progress-bar {
+      height: 6px;
+      background-color: #e2e8f0;
+      border-radius: 3px;
+      margin-bottom: 5px;
+      overflow: hidden;
+    }
+    
+    .task-progress .progress-bar > div {
+      height: 100%;
+      background: linear-gradient(90deg, var(--genshin-gold) 0%, #f6e05e 100%);
+      border-radius: 3px;
+      transition: width 0.5s ease;
+    }
+    
+    .task-progress span {
+      font-size: 12px;
+      color: #718096;
+    }
+    
+    .task-complete {
+      font-size: 14px;
+      color: var(--genshin-gold);
+      display: flex;
+      align-items: center;
+      margin-top: 5px;
+    }
+    
+    .task-complete i {
+      margin-right: 8px;
+    }
+    
+    /* Achievements Grid */
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    
+    .achievement-card {
+      background-color: var(--genshin-card-bg);
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .achievement-card:hover {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .achievement-card.locked {
+      opacity: 0.6;
+    }
+    
+    .achievement-card.in-progress {
+      border-left: 4px solid var(--genshin-light-blue);
+    }
+    
+    .achievement-card.unlocked {
+      border-left: 4px solid var(--genshin-gold);
+    }
+    
+    .achievement-icon {
+      width: 50px;
+      height: 50px;
+      background-color: rgba(66, 153, 225, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      color: var(--genshin-light-blue);
+      font-size: 20px;
+    }
+    
+    .achievement-card.unlocked .achievement-icon {
+      background-color: rgba(214, 158, 46, 0.1);
+      color: var(--genshin-gold);
+    }
+    
+    .achievement-card h4 {
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: var(--genshin-dark);
+    }
+    
+    .achievement-card p {
+      font-size: 14px;
+      color: #718096;
+      margin-bottom: 10px;
+    }
+    
+    .achievement-progress {
+      font-size: 14px;
+      color: var(--genshin-blue);
+      margin-bottom: 10px;
+    }
+    
+    .achievement-complete {
+      font-size: 14px;
+      color: var(--genshin-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    
+    .achievement-complete i {
+      margin-right: 8px;
+    }
+    
+    .achievement-reward {
+      font-size: 14px;
+      color: var(--genshin-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .achievement-reward i {
+      margin-right: 8px;
+    }
+    
+    /* Summary Cards */
+    .quests-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 30px;
+    }
+    
+    .summary-card {
+      background-color: var(--genshin-card-bg);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    
+    .summary-card h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      color: var(--genshin-blue);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .summary-card h4 i {
+      margin-right: 10px;
+      color: var(--genshin-gold);
+    }
+    
+    .summary-content {
+      display: flex;
+      align-items: center;
+    }
+    
+    .progress-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: conic-gradient(var(--genshin-gold) 33%, #e2e8f0 33%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+      position: relative;
+    }
+    
+    .progress-circle::before {
+      content: '';
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      background-color: white;
+      border-radius: 50%;
+    }
+    
+    .progress-circle span {
+      position: relative;
+      font-weight: 600;
+      color: var(--genshin-blue);
+    }
+    
+    .summary-details {
+      flex: 1;
+    }
+    
+    .rewards-earned, .rewards-remaining {
+      margin-bottom: 15px;
+    }
+    
+    .rewards-earned h5, .rewards-remaining h5 {
+      font-size: 14px;
+      color: #718096;
+      margin-bottom: 5px;
+    }
+    
+    .rewards-earned ul, .rewards-remaining ul {
+      list-style: none;
+    }
+    
+    .rewards-earned li, .rewards-remaining li {
+      font-size: 14px;
+      color: var(--genshin-dark);
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .rewards-earned i, .rewards-remaining i {
+      margin-right: 8px;
+      color: var(--genshin-gold);
+    }
+    
+    .total-rewards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .rewards-collected h5, .rewards-available h5 {
+      font-size: 14px;
+      color: #718096;
+      margin-bottom: 5px;
+    }
+    
+    .rewards-collected ul, .rewards-available ul {
+      list-style: none;
+    }
+    
+    .rewards-collected li, .rewards-available li {
+      font-size: 14px;
+      color: var(--genshin-dark);
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .rewards-collected i, .rewards-available i {
+      margin-right: 8px;
+      color: var(--genshin-gold);
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      text-decoration: none;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--genshin-gold) 0%, #f6ad55 100%);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #b7791f 0%, #dd6b20 100%);
+    }
+    
+    .btn-claim {
+      width: 100%;
+    }
+    
+    .btn-claim i {
+      margin-right: 8px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .event-progress {
+        width: 100%;
+        margin-top: 15px;
+      }
+      
+      .calendar-controls {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      
+      .view-options {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .quests-summary {
+        grid-template-columns: 1fr;
+      }
+      
+      .total-rewards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="calendar-header">
+    <div class="container">
+      <div class="header-content">
+        <h1 class="page-title">
+          <i class="fas fa-calendar-alt"></i> Календарь фестиваля
+        </h1>
+        <div class="event-progress">
+          <div class="progress-info">
+            <span class="progress-text">Прогресс: <strong>12/30 дней</strong></span>
+            <span class="progress-percent">40% завершено</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 40%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="calendar-page">
+    <div class="container">
+      <div class="calendar-controls">
+        <button class="calendar-nav prev-month">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <h2 class="current-month">Июль 2025</h2>
+        <button class="calendar-nav next-month">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+        
+        <div class="view-options">
+          <button class="view-option active" data-view="month">
+            <i class="fas fa-calendar-alt"></i> Месяц
+          </button>
+          <button class="view-option" data-view="week">
+            <i class="fas fa-calendar-week"></i> Неделя
+          </button>
+          <button class="view-option" data-view="day">
+            <i class="fas fa-calendar-day"></i> День
+          </button>
+        </div>
+      </div>
+
+      <section class="calendar-grid">
+        <div class="day-names">
+          <div class="day-name">Пн</div>
+          <div class="day-name">Вт</div>
+          <div class="day-name">Ср</div>
+          <div class="day-name">Чт</div>
+          <div class="day-name">Пт</div>
+          <div class="day-name">Сб</div>
+          <div class="day-name">Вс</div>
+        </div>
+        
+        <div class="day-grid" id="dayGrid">
+          <!-- Days will be generated by JavaScript -->
+        </div>
+      </section>
+
+      <section class="quests-section">
+        <div class="quests-tabs">
+          <button class="quest-tab active" data-tab="daily">
+            <i class="fas fa-sun"></i> Ежедневные
+          </button>
+          <button class="quest-tab" data-tab="weekly">
+            <i class="fas fa-calendar-week"></i> Еженедельные
+          </button>
+          <button class="quest-tab" data-tab="achievements">
+            <i class="fas fa-trophy"></i> Достижения
+          </button>
+        </div>
+        
+        <div class="quests-content">
+          <div id="dailyTasks" class="quest-tab-content active">
+            <div class="quest-header">
+              <h3><i class="fas fa-sun"></i> Ежедневные задания</h3>
+              <div class="quest-reset">
+                <i class="fas fa-sync-alt"></i> Сброс через: <span id="dailyReset">12:34:56</span>
+              </div>
+            </div>
+            <ul class="tasks-list" id="dailyTasksList">
+              <!-- Daily tasks will be populated by JavaScript -->
+            </ul>
+          </div>
+          
+          <div id="weeklyTasks" class="quest-tab-content">
+            <div class="quest-header">
+              <h3><i class="fas fa-calendar-week"></i> Еженедельные задания</h3>
+              <div class="quest-reset">
+                <i class="fas fa-sync-alt"></i> Сброс через: <span id="weeklyReset">3 дня 12:34:56</span>
+              </div>
+            </div>
+            <ul class="tasks-list" id="weeklyTasksList">
+              <!-- Weekly tasks will be populated by JavaScript -->
+            </ul>
+          </div>
+          
+          <div id="achievements" class="quest-tab-content">
+            <div class="quest-header">
+              <h3><i class="fas fa-trophy"></i> Достижения фестиваля</h3>
+            </div>
+            <div class="achievements-grid" id="achievementsGrid">
+              <!-- Achievements will be populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="quests-summary">
+          <div class="summary-card today-progress">
+            <h4><i class="fas fa-chart-line"></i> Сегодняшний прогресс</h4>
+            <div class="summary-content">
+              <div class="progress-circle" data-percent="33">
+                <span>33%</span>
+              </div>
+              <div class="summary-details">
+                <div class="rewards-earned">
+                  <h5>Получено сегодня:</h5>
+                  <ul>
+                    <li><i class="fas fa-gem"></i> <span id="todayPrimos">15</span> Primogems</li>
+                    <li><i class="fas fa-coins"></i> <span id="todayMora">700</span> Моры</li>
+                  </ul>
+                </div>
+                <div class="rewards-remaining">
+                  <h5>Осталось получить:</h5>
+                  <ul>
+                    <li><i class="fas fa-gem"></i> <span id="remainingPrimos">30</span> Primogems</li>
+                    <li><i class="fas fa-coins"></i> <span id="remainingMora">1300</span> Моры</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="summary-card total-progress">
+            <h4><i class="fas fa-award"></i> Общий прогресс</h4>
+            <div class="summary-content">
+              <div class="total-rewards">
+                <div class="rewards-collected">
+                  <h5>Всего получено:</h5>
+                  <ul>
+                    <li><i class="fas fa-gem"></i> <span id="totalPrimos">450</span> Primogems</li>
+                    <li><i class="fas fa-coins"></i> <span id="totalMora">12,500</span> Моры</li>
+                    <li><i class="fas fa-trophy"></i> <span id="totalRewards">3</span> награды</li>
+                  </ul>
+                </div>
+                <div class="rewards-available">
+                  <h5>Доступно для получения:</h5>
+                  <ul>
+                    <li><i class="fas fa-gem"></i> <span id="availablePrimos">1,200</span> Primogems</li>
+                    <li><i class="fas fa-coins"></i> <span id="availableMora">25,000</span> Моры</li>
+                    <li><i class="fas fa-trophy"></i> <span id="availableRewards">5</span> наград</li>
+                  </ul>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-claim" id="claimRewards">
+                <i class="fas fa-gift"></i> Получить награды
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Calendar data
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth();
+      const currentYear = currentDate.getFullYear();
+      const today = currentDate.getDate();
+      
+      // Update month and year display
+      const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", 
+                          "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+      document.querySelector('.current-month').textContent = `${monthNames[currentMonth]} ${currentYear}`;
+      
+      // Generate calendar days
+      function generateCalendar() {
+        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        
+        // Adjust for Russian week start (Monday)
+        let firstDayIndex = firstDay === 0 ? 6 : firstDay - 1;
+        
+        const dayGrid = document.getElementById('dayGrid');
+        dayGrid.innerHTML = '';
+        
+        // Add empty cells for days before the first day of the month
+        for (let i = 0; i < firstDayIndex; i++) {
+          const emptyDay = document.createElement('div');
+          emptyDay.className = 'day empty';
+          dayGrid.appendChild(emptyDay);
+        }
+        
+        // Add days of the month
+        for (let i = 1; i <= daysInMonth; i++) {
+          const dayElement = document.createElement('div');
+          dayElement.className = 'day';
+          if (i === today) dayElement.classList.add('active');
+          
+          // Mark some days as completed (for demo)
+          if (i < today && i % 3 === 0) dayElement.classList.add('completed');
+          
+          const dayNumber = document.createElement('div');
+          dayNumber.className = 'day-number';
+          dayNumber.textContent = i;
+          dayElement.appendChild(dayNumber);
+          
+          // Add event dots for some days (for demo)
+          if (i % 5 === 0 || i % 7 === 0) {
+            const dayEvents = document.createElement('div');
+            dayEvents.className = 'day-events';
+            
+            const eventDot1 = document.createElement('div');
+            eventDot1.className = 'event-dot';
+            if (i % 3 === 0) eventDot1.classList.add('primary');
+            dayEvents.appendChild(eventDot1);
+            
+            if (i % 4 === 0) {
+              const eventDot2 = document.createElement('div');
+              eventDot2.className = 'event-dot';
+              dayEvents.appendChild(eventDot2);
+            }
+            
+            dayElement.appendChild(dayEvents);
+          }
+          
+          // Add click event to mark day as completed
+          dayElement.addEventListener('click', function() {
+            if (i <= today) {
+              this.classList.toggle('completed');
+              updateProgress();
+            }
+          });
+          
+          dayGrid.appendChild(dayElement);
+        }
+      }
+      
+      // Generate tasks
+      function generateTasks() {
+        const dailyTasks = [
+          {
+            id: 'task1',
+            title: 'Победить 3 врагов',
+            description: 'Победите любого противника в открытом мире',
+            rewards: [
+              { type: 'primogems', amount: 10 },
+              { type: 'mora', amount: 500 }
+            ],
+            progress: { current: 2, total: 3 },
+            completed: false
+          },
+          {
+            id: 'task2',
+            title: 'Собрать 10 монет',
+            description: 'Соберите монеты с побежденных врагов',
+            rewards: [
+              { type: 'primogems', amount: 5 },
+              { type: 'mora', amount: 200 }
+            ],
+            progress: { current: 10, total: 10 },
+            completed: true
+          },
+          {
+            id: 'task3',
+            title: 'Пройти уровень без урона',
+            description: 'Завершите любой подземелье, не получив урона',
+            rewards: [
+              { type: 'primogems', amount: 15 },
+              { type: 'mora', amount: 1000 }
+            ],
+            progress: { current: 0, total: 1 },
+            completed: false
+          }
+        ];
+        
+        const weeklyTasks = [
+          {
+            id: 'task4',
+            title: 'Завершить 5 уровней',
+            description: 'Пройдите любые подземелья или испытания',
+            rewards: [
+              { type: 'primogems', amount: 50 },
+              { type: 'mora', amount: 2000 }
+            ],
+            progress: { current: 2, total: 5 },
+            completed: false
+          },
+          {
+            id: 'task5',
+            title: 'Собрать 100 монет',
+            description: 'Соберите монеты с побежденных врагов',
+            rewards: [
+              { type: 'primogems', amount: 30 },
+              { type: 'mora', amount: 1500 }
+            ],
+            progress: { current: 65, total: 100 },
+            completed: false
+          },
+          {
+            id: 'task6',
+            title: 'Победить босса',
+            description: 'Победите любого мирового босса',
+            rewards: [
+              { type: 'primogems', amount: 80 },
+              { type: 'mora', amount: 3000 }
+            ],
+            progress: { current: 0, total: 1 },
+            completed: false
+          }
+        ];
+        
+        const achievements = [
+          {
+            id: 'ach1',
+            title: 'Мастер фестиваля',
+            description: 'Выполнить все задания фестиваля',
+            progress: { current: 0, total: 42 },
+            reward: { type: 'primogems', amount: 200 },
+            status: 'locked'
+          },
+          {
+            id: 'ach2',
+            title: 'Первая победа',
+            description: 'Выполнить первое задание',
+            progress: { current: 1, total: 1 },
+            reward: { type: 'primogems', amount: 20 },
+            status: 'unlocked'
+          },
+          {
+            id: 'ach3',
+            title: 'Собиратель сокровищ',
+            description: 'Собрать 500 монет',
+            progress: { current: 127, total: 500 },
+            reward: { type: 'primogems', amount: 50 },
+            status: 'in-progress'
+          }
+        ];
+        
+        // Render daily tasks
+        const dailyTasksList = document.getElementById('dailyTasksList');
+        dailyTasksList.innerHTML = '';
+        
+        dailyTasks.forEach(task => {
+          const taskItem = document.createElement('li');
+          taskItem.className = 'task-item';
+          if (task.completed) taskItem.classList.add('completed');
+          
+          taskItem.innerHTML = `
+            <div class="task-checkbox">
+              <input type="checkbox" id="${task.id}" ${task.completed ? 'checked' : ''}>
+              <label for="${task.id}"></label>
+            </div>
+            <div class="task-info">
+              <h4>${task.title}</h4>
+              <p class="task-description">${task.description}</p>
+              <div class="task-reward">
+                ${task.rewards.map(reward => `
+                  <span class="reward-item">
+                    <i class="fas fa-${reward.type === 'primogems' ? 'gem' : 'coins'}"></i> 
+                    ${reward.amount} ${reward.type === 'primogems' ? 'Primogems' : 'Моры'}
+                  </span>
+                `).join('')}
+              </div>
+              ${task.completed ? `
+                <div class="task-complete">
+                  <i class="fas fa-check-circle"></i> Задание выполнено!
+                </div>
+              ` : `
+                <div class="task-progress">
+                  <div class="progress-bar" style="width: ${(task.progress.current / task.progress.total) * 100}%"></div>
+                  <span>${task.progress.current}/${task.progress.total} завершено</span>
+                </div>
+              `}
+            </div>
+          `;
+          
+          // Add checkbox event
+          const checkbox = taskItem.querySelector('input');
+          checkbox.addEventListener('change', function() {
+            taskItem.classList.toggle('completed', this.checked);
+            task.completed = this.checked;
+            updateProgress();
+          });
+          
+          dailyTasksList.appendChild(taskItem);
+        });
+        
+        // Render weekly tasks
+        const weeklyTasksList = document.getElementById('weeklyTasksList');
+        weeklyTasksList.innerHTML = '';
+        
+        weeklyTasks.forEach(task => {
+          const taskItem = document.createElement('li');
+          taskItem.className = 'task-item';
+          if (task.completed) taskItem.classList.add('completed');
+          
+          taskItem.innerHTML = `
+            <div class="task-checkbox">
+              <input type="checkbox" id="${task.id}" ${task.completed ? 'checked' : ''}>
+              <label for="${task.id}"></label>
+            </div>
+            <div class="task-info">
+              <h4>${task.title}</h4>
+              <p class="task-description">${task.description}</p>
+              <div class="task-reward">
+                ${task.rewards.map(reward => `
+                  <span class="reward-item">
+                    <i class="fas fa-${reward.type === 'primogems' ? 'gem' : 'coins'}"></i> 
+                    ${reward.amount} ${reward.type === 'primogems' ? 'Primogems' : 'Моры'}
+                  </span>
+                `).join('')}
+              </div>
+              ${task.completed ? `
+                <div class="task-complete">
+                  <i class="fas fa-check-circle"></i> Задание выполнено!
+                </div>
+              ` : `
+                <div class="task-progress">
+                  <div class="progress-bar" style="width: ${(task.progress.current / task.progress.total) * 100}%"></div>
+                  <span>${task.progress.current}/${task.progress.total} завершено</span>
+                </div>
+              `}
+            </div>
+          `;
+          
+          // Add checkbox event
+          const checkbox = taskItem.querySelector('input');
+          checkbox.addEventListener('change', function() {
+            taskItem.classList.toggle('completed', this.checked);
+            task.completed = this.checked;
+            updateProgress();
+          });
+          
+          weeklyTasksList.appendChild(taskItem);
+        });
+        
+        // Render achievements
+        const achievementsGrid = document.getElementById('achievementsGrid');
+        achievementsGrid.innerHTML = '';
+        
+        achievements.forEach(ach => {
+          const achCard = document.createElement('div');
+          achCard.className = `achievement-card ${ach.status}`;
+          
+          achCard.innerHTML = `
+            <div class="achievement-icon">
+              <i class="fas fa-${ach.status === 'locked' ? 'lock' : ach.status === 'unlocked' ? 'check' : 'hourglass-half'}"></i>
+            </div>
+            <h4>${ach.title}</h4>
+            <p>${ach.description}</p>
+            ${ach.status === 'unlocked' ? `
+              <div class="achievement-complete">
+                <i class="fas fa-check-circle"></i> Получено!
+              </div>
+            ` : `
+              <div class="achievement-progress">${ach.progress.current}/${ach.progress.total}</div>
+            `}
+            <div class="achievement-reward">
+              <i class="fas fa-gem"></i> ${ach.reward.amount} Primogems
+            </div>
+          `;
+          
+          achievementsGrid.appendChild(achCard);
+        });
+      }
+      
+      // Update progress counters
+      function updateProgress() {
+        // Calculate completed days
+        const completedDays = document.querySelectorAll('.day.completed').length;
+        const totalDays = 30; // For this event
+        const dayProgress = Math.round((completedDays / totalDays) * 100);
+        
+        // Update event progress
+        document.querySelector('.progress-text strong').textContent = `${completedDays}/${totalDays} дней`;
+        document.querySelector('.progress-percent').textContent = `${dayProgress}% завершено`;
+        document.querySelector('.progress-fill').style.width = `${dayProgress}%`;
+        
+        // Update today's progress (simplified)
+        const completedTasks = document.querySelectorAll('.task-item.completed').length;
+        const totalTasks = 6; // For demo
+        const taskProgress = Math.round((completedTasks / totalTasks) * 100);
+        
+        document.querySelector('.progress-circle').style.background = `conic-gradient(var(--genshin-gold) ${taskProgress}%, #e2e8f0 ${taskProgress}%)`;
+        document.querySelector('.progress-circle span').textContent = `${taskProgress}%`;
+      }
+      
+      // Tab switching
+      document.querySelectorAll('.quest-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          // Remove active class from all tabs and content
+          document.querySelectorAll('.quest-tab').forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('.quest-tab-content').forEach(c => c.classList.remove('active'));
+          
+          // Add active class to clicked tab and corresponding content
+          this.classList.add('active');
+          const tabId = this.getAttribute('data-tab');
+          document.getElementById(`${tabId}Tasks`).classList.add('active');
+        });
+      });
+      
+      // Claim rewards button
+      document.getElementById('claimRewards').addEventListener('click', function() {
+        alert('Награды успешно получены!');
+      });
+      
+      // Navigation buttons
+      document.querySelector('.prev-month').addEventListener('click', function() {
+        alert('Переход к предыдущему месяцу');
+      });
+      
+      document.querySelector('.next-month').addEventListener('click', function() {
+        alert('Переход к следующему месяцу');
+      });
+      
+      // View options
+      document.querySelectorAll('.view-option').forEach(option => {
+        option.addEventListener('click', function() {
+          document.querySelectorAll('.view-option').forEach(opt => opt.classList.remove('active'));
+          this.classList.add('active');
+          alert(`Переключено на вид: ${this.getAttribute('data-view')}`);
+        });
+      });
+      
+      // Countdown timers
+      function updateCountdowns() {
+        // Daily reset (every 24 hours)
+        let now = new Date();
+        let resetTime = new Date();
+        resetTime.setHours(4, 0, 0, 0); // 4:00 AM reset time
+        if (now > resetTime) {
+          resetTime.setDate(resetTime.getDate() + 1);
+        }
+        
+        let diff = resetTime - now;
+        let hours = Math.floor(diff / (1000 * 60 * 60));
+        let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        document.getElementById('dailyReset').textContent = 
+          `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        // Weekly reset (every Monday at 4:00 AM)
+        let weeklyReset = new Date();
+        weeklyReset.setHours(4, 0, 0, 0);
+        let daysUntilReset = (1 - weeklyReset.getDay() + 7) % 7;
+        if (daysUntilReset === 0 && now > weeklyReset) {
+          daysUntilReset = 7;
+        }
+        weeklyReset.setDate(weeklyReset.getDate() + daysUntilReset);
+        
+        let weeklyDiff = weeklyReset - now;
+        let weeklyDays = Math.floor(weeklyDiff / (1000 * 60 * 60 * 24));
+        let weeklyHours = Math.floor((weeklyDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        
+        document.getElementById('weeklyReset').textContent = 
+          `${weeklyDays} дней ${weeklyHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      }
+      
+      // Initialize
+      generateCalendar();
+      generateTasks();
+      updateProgress();
+      updateCountdowns();
+      
+      // Update countdowns every second
+      setInterval(updateCountdowns, 1000);
+    });
+  </script>
+</body>
+</html>
